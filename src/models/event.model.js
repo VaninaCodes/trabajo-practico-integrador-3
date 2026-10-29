@@ -1,19 +1,28 @@
-import { model, Schema, Types } from "mongoose";
+import { model, Schema } from "mongoose";
 
 // location - embebido 1:1
 const locationSchema = new Schema(
   {
     venue: {
       type: String,
-      require: true,
+      required: true,
+      trim: true,
+      minlenght: 3,
+      maxlenght: 100,
     },
     adress: {
       type: String,
-      require: true,
+      required: true,
+      trim: true,
+      minlenght: 5,
+      maxlenght: 150,
     },
     city: {
       type: String,
-      require: true,
+      required: true,
+      trim: true,
+      minlenght: 2,
+      maxlenght: 50,
     },
   },
   { _id: false },
@@ -23,23 +32,37 @@ const eventSchema = new Schema(
   {
     title: {
       type: String,
+      required: true,
+      trim: true,
+      minlength: 3,
+      maxlength: 150,
     },
     description: {
       type: String,
+      required: true,
+      trim: true,
+      minlenght: 20,
     },
     startDate: {
       type: Date,
-      require: true,
+      required: true,
     },
     endDate: {
       type: Date,
-      require: true,
+      required: true,
     },
     capacity: {
       type: Number,
+      required: true,
+      min: 1,
+      validate: {
+        validator: Number.isInteger,
+        message: "La capacidad debe ser un número entero",
+      },
     },
     price: {
       type: Number,
+      min: 0,
       default: 0,
     },
     status: {
@@ -47,11 +70,15 @@ const eventSchema = new Schema(
       enum: ["scheduled", "cancelled", "finished"],
       default: "scheduled",
     },
-    location: locationSchema,
+    location: {
+      type: locationSchema,
+      required: true,
+    },
     // organizer(ObjectId) -  ref User 1:1
     organizer: {
       type: Schema.Types.ObjectId,
       ref: "User",
+      required: true,
     },
     // categories(array ObjectIds) - ref Category N:M
     categories: [

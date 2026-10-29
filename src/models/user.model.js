@@ -5,11 +5,17 @@ const profileSchema = new Schema(
   {
     firstName: {
       type: String,
-      require: true,
+      required: true,
+      trim: true,
+      minlenght: 2,
+      maxlenght: 50,
     },
     lastName: {
       type: String,
-      require: true,
+      required: true,
+      trim: true,
+      minlenght: 2,
+      maxlenght: 50,
     },
     birthDate: {
       type: Date,
@@ -25,24 +31,36 @@ const userSchema = new Schema(
   {
     username: {
       type: String,
-      require: true,
+      required: true,
       unique: true,
+      trim: true,
+      minlenght: 3,
+      maxlenght: 20,
     },
     email: {
       type: String,
-      require: true,
+      required: true,
       unique: true,
+      trim: true,
+      match: [/^\S+@\S+\.\S+$/, "El email no tiene un formato válido"],
     },
     password: {
       type: String,
-      require: true,
+      required: true,
     },
     role: {
-      type: Types.ObjectId,
-      ref: "Role",
-      require: true,
+      type: String,
+      enum: ["user", "admin"],
+      default: "user",
     },
-    profile: profileSchema,
+    profile: {
+      type: profileSchema,
+      required: true,
+    },
+    deleteAt:{
+      type: Date,
+      default: null,
+    }
   },
   {
     versionKey: false,
@@ -55,7 +73,7 @@ const userSchema = new Schema(
 userSchema.virtual("events", {
   ref: "Events",
   localField: "_id",
-  foreignField: "user",
+  foreignField: "organizer",
 });
 
 export const UserModel = model("User", userSchema);

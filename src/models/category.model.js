@@ -1,27 +1,32 @@
 import { model, Schema, Types } from "mongoose";
 
 const categorySchema = new Schema(
-    {
-        name: {
-            type: String,
-            unique: true,
-        },
-        description: {
-            type: String
-        }
+  {
+    name: {
+      type: String,
+      unique: true,
+      trim: true,
+      minlength: 2,
+      maxlength: 30,
     },
-    {
-        timestamps: true,
-        versionKey: false,
-        toJSON: { virtuals: true},
-        toObject: { virtuals: true},
-    }
+    description: {
+      type: String,
+      trim: true,
+      maxlength: 200,
+    },
+  },
+  {
+    timestamps: true,
+    versionKey: false,
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
+  },
 );
 
-categorySchema.virtual("event", {
-    ref: "Event",
-    localField: "_id",
-    foreignField: "categories"
+categorySchema.virtual("events", {
+  ref: "Event",
+  localField: "_id",
+  foreignField: "categories",
 });
 
 export const CategoryModel = model("Category", categorySchema);
