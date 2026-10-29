@@ -5,11 +5,11 @@ const profileSchema = new Schema(
   {
     firstName: {
       type: String,
-      required: true,
+      require: true,
     },
     lastName: {
       type: String,
-      required: true,
+      require: true,
     },
     birthDate: {
       type: Date,
@@ -25,22 +25,22 @@ const userSchema = new Schema(
   {
     username: {
       type: String,
-      required: true,
+      require: true,
       unique: true,
     },
     email: {
       type: String,
-      required: true,
+      require: true,
       unique: true,
     },
     password: {
       type: String,
-      required: true,
+      require: true,
     },
     role: {
       type: Types.ObjectId,
       ref: "Role",
-      required: true,
+      require: true,
     },
     profile: profileSchema,
   },
