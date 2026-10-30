@@ -1,13 +1,13 @@
-import bcrypt from "bcryptjs";
+import bcrypt from "bcrypt";
 
 // hashear la contraseña
-export const hashPassword = async(password) => {
-    const saltRounds = 10;
-    const hashPassword = await bcrypt.hash(password, saltRounds);
-    return hashPassword;
-}
+export const hashPassword = async (password) => {
+  const saltRounds = 10;
+  const hashPassword = await bcrypt.hash(password, saltRounds);
+  return hashPassword;
+};
 
 // comparar la contraseña hasheada
-export const comparePassword = async(password, hashPassword) => {
-    return await bcrypt.compare(password, hashPassword);
+export const comparePassword = async (password, hashPassword) => {
+  return await bcrypt.compare(password, hashPassword);
 };
