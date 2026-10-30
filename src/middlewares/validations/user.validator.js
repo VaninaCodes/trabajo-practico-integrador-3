@@ -3,7 +3,7 @@ import { body } from "express-validator";
 // perfil embebido
 const profileValidator = (prefix, optional) => {
   const field = (name) => {
-    const chain = body(`${prefix} ${name}`);
+    const chain = body(`${prefix}${name}`);
     return optional ? chain.optional() : chain;
   };
 

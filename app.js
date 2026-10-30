@@ -14,6 +14,7 @@ const PORT = process.env.PORT || 3000;
 
 // middlewares
 app.use(express.json());
+app.use(cookieParser());
 
 // rutas
 app.use("/api", authRouter);

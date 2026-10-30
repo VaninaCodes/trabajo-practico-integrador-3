@@ -9,6 +9,7 @@ import {
 import { authMiddleware } from "../middlewares/auth.middleware.js";
 import { validate } from "../middlewares/validator.js";
 import {
+  loginValidator,
   registerValidator,
   updateProfileValidator,
 } from "../middlewares/validations/user.validator.js";
