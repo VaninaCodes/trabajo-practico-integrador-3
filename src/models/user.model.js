@@ -7,15 +7,15 @@ const profileSchema = new Schema(
       type: String,
       required: true,
       trim: true,
-      minlenght: 2,
-      maxlenght: 50,
+      minlength: 2,
+      maxlength: 50,
     },
     lastName: {
       type: String,
       required: true,
       trim: true,
-      minlenght: 2,
-      maxlenght: 50,
+      minlength: 2,
+      maxlength: 50,
     },
     birthDate: {
       type: Date,
@@ -34,8 +34,8 @@ const userSchema = new Schema(
       required: true,
       unique: true,
       trim: true,
-      minlenght: 3,
-      maxlenght: 20,
+      minlength: 3,
+      maxlength: 20,
     },
     email: {
       type: String,
@@ -47,6 +47,7 @@ const userSchema = new Schema(
     password: {
       type: String,
       required: true,
+      select: false,
     },
     role: {
       type: String,
@@ -57,21 +58,21 @@ const userSchema = new Schema(
       type: profileSchema,
       required: true,
     },
-    deleteAt:{
+    deletedAt: {
       type: Date,
       default: null,
-    }
+    },
   },
   {
     versionKey: false,
     timestamps: true,
-    toJSON: { virtuals: true},
-    toObject: { virtuals: true},
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
   },
 );
 
 userSchema.virtual("events", {
-  ref: "Events",
+  ref: "Event",
   localField: "_id",
   foreignField: "organizer",
 });
