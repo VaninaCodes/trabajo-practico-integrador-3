@@ -35,7 +35,7 @@ export const adminMiddleware = (req, res, next) => {
 // verifica que el user sea organizador o admin
 export const ownerOrAdminMiddleware = async (req, res, next) => {
   try {
-    const event = await EventModel.findById(req.param.id);
+    const event = await EventModel.findById(req.params.id);
     // verifica que el evento exista
     if (!event) {
       return res.status(404).json({ msg: "Evento no encontrado" });
